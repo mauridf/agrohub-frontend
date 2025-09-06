@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -15,7 +16,8 @@ import { AuthService } from '../../core/services/auth.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   template: `
   <div class="register-container">
@@ -30,6 +32,14 @@ import { AuthService } from '../../core/services/auth.service';
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Senha</mat-label>
           <input matInput type="password" formControlName="senha">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="ADM">Administrador</mat-option>
+            <mat-option value="PROD">Produtor</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <button mat-raised-button color="accent" class="full-width">Cadastrar</button>
@@ -61,14 +71,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       email: [''],
-      senha: ['']
+      senha: [''],
+      role: ['PROD'] // default para Produtor
     });
   }
 
   onRegister() {
-    const { email, senha } = this.form.value;
-    if (!email || !senha) return;
-    this.auth.register(email, senha).subscribe({
+    const { email, senha, role } = this.form.value;
+    if (!email || !senha || !role) return;
+    this.auth.register(email, senha, role).subscribe({
       next: () => this.router.navigate(['/login']),
       error: err => console.error(err)
     });

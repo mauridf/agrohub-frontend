@@ -6,23 +6,21 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatButtonModule],
   template: `
-    <div class="dashboard">
-      <h1>Bem-vindo ao AgroHub</h1>
-      <p>Aqui virá o dashboard futuramente.</p>
-      <button mat-raised-button color="warn" (click)="logout()">Sair</button>
+    <div class="dashboard-container">
+      <h1>DASHBOARD - AGROHUB</h1>
     </div>
   `,
   styles: [`
-    .dashboard { padding: 2rem; }
+    .dashboard-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 64px - 40px); /* desconta header e footer */
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2e7d32;
+    }
   `]
 })
-export class DashboardComponent {
-  constructor(private auth: AuthService, private router: Router) {}
-
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/login']);
-  }
-}
+export class DashboardComponent {}

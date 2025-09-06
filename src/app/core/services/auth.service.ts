@@ -23,9 +23,9 @@ export class AuthService {
     );
   }
 
-  register(email: string, senha: string) {
-    return this.http.post(`${environment.apiUrl}${API.auth.register}`, { email, senha });
-  }
+  register(email: string, senha: string, role: string) {
+  return this.http.post(`${environment.apiUrl}${API.auth.register}`, { email, senha, role });
+}
 
   getToken() {
     return localStorage.getItem(this.tokenKey);
