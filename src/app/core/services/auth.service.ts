@@ -8,17 +8,19 @@ import { tap } from 'rxjs';
 export class AuthService {
   private tokenKey = 'agrohub_token';
   private roleKey = 'agrohub_role';
+  private idUser = 'agrohub_idUser';
 
   constructor(private http: HttpClient) {}
 
   login(email: string, senha: string) {
-    return this.http.post<{ token: string; role: string }>(
+    return this.http.post<{ token: string; role: string; usuarioId: string }>(
       `${environment.apiUrl}${API.auth.login}`,
       { email, senha }
     ).pipe(
       tap(res => {
         localStorage.setItem(this.tokenKey, res.token);
         localStorage.setItem(this.roleKey, res.role);
+        localStorage.setItem(this.idUser, res.usuarioId)
       })
     );
   }
@@ -35,8 +37,15 @@ export class AuthService {
     return localStorage.getItem(this.roleKey);
   }
 
+  getUserId(): string {
+    const id = localStorage.getItem(this.idUser);
+    if (!id) throw new Error('Usuário não autenticado');
+    return id;
+  }
+
   logout() {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.roleKey);
+    localStorage.removeItem(this.idUser);
   }
 }
