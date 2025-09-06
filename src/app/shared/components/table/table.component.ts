@@ -22,7 +22,9 @@ import { MatButtonModule } from '@angular/material/button';
               <mat-icon>delete</mat-icon>
             </button>
           </ng-container>
-          <ng-container *ngIf="column !== 'acoes'">{{ element[column] }}</ng-container>
+          <ng-container *ngIf="column !== 'acoes'">
+            {{ element[column + 'Nome'] ?? element[column] }}
+          </ng-container>
         </td>
       </ng-container>
 

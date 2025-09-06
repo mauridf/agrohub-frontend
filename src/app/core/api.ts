@@ -7,7 +7,7 @@ export const API = {
   produtores: '/produtores',
   fazendas: '/fazendas',
   culturas: '/culturas',
-  culturaPlantada: '/culturaplantada',
+  culturaPlantada: '/culturas-plantadas',
   maquinas: '/maquinas',
   funcionarios: '/funcionarios',
   insumos: '/insumos',

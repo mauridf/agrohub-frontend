@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { API } from '../api';
 
 export interface Produtor {
-  id?: string;
+  id: string;
   usuario: { id: string };
   nome: string;
   cpf: string;
